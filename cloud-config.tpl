@@ -39,8 +39,8 @@ runcmd:
   - sleep 5 && journalctl -u faasd --no-pager
   - systemctl daemon-reload
   - sleep 60
-  - mkdir -p /var/lib/spinner
-  - cd /var/lib/spinner
+  - mkdir -p /var/lib/spinoff
+  - cd /var/lib/spinoff
   - git clone https://github.com/comfucios/spinoff.git
   - cd spinoff
   - cat cron-connector.yml >> /var/lib/faasd/docker-compose.yaml
@@ -50,7 +50,7 @@ runcmd:
   - echo ${gw_password} | faas-cli login -g http://localhost:8080 --password-stdin
   - echo ${hcloud_token} | faas-cli secret create secret-api-key -g http://localhost:8080
   - faas-cli secret list -g http://localhost:8080
-  - sed -i s/\$FAASD_NODE_IP/localhost/g spinner.yml spinner-controller.yml
-  - sed -i s/\$DOCKER_USER/${docker_user}/g spinner.yml spinner-controller.yml
-  - faas-cli deploy -f spinner.yml
-  - faas-cli deploy -f spinner-controller.yml
+  - sed -i s/\$FAASD_NODE_IP/localhost/g spinoff.yml spinoff-controller.yml
+  - sed -i s/\$DOCKER_USER/${docker_user}/g spinoff.yml spinoff-controller.yml
+  - faas-cli deploy -f spinoff.yml
+  - faas-cli deploy -f spinoff-controller.yml

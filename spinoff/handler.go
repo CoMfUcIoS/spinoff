@@ -24,7 +24,6 @@ func getAPISecret(secretName string) (secretBytes []byte, err error) {
 }
 
 func validAuth(apiKeyHeader string) (bool, error) {
-
 	apiSecret, err := getAPISecret("secret-api-key")
 	// fmt.Printf("string(apiSecret): %s\n", string(apiSecret))
 	if err != nil {
@@ -43,7 +42,6 @@ func validAuth(apiKeyHeader string) (bool, error) {
 
 // Handle will process incoming HTTP requests
 func Handle(w http.ResponseWriter, r *http.Request) {
-
 	token := r.Header.Get("X-Api-Key")
 	// fmt.Printf("X-Api-Key: %s\n", token)
 
@@ -93,12 +91,11 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 // Checks whether there are any available Servers ready to serve requests or not
 func checkAvailableServers(c *hcloud.Client) bool {
-
 	fmt.Println("Checking available servers...")
 
 	servers, err := c.Server.AllWithOpts(context.Background(), hcloud.ServerListOpts{
 		Status:   []hcloud.ServerStatus{hcloud.ServerStatusRunning},
-		ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinner"},
+		ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinoff"},
 	})
 	if err != nil {
 		log.Fatalf("error retrieving servers: %s\n", err)
@@ -119,16 +116,15 @@ func checkAvailableServers(c *hcloud.Client) bool {
 // Spins up a new Server in the cloud provider
 // Check out server types: https://docs.hetzner.cloud/#server-types
 func spinUpServer(c *hcloud.Client, serverType string, imageName string, location string) (*hcloud.Server, error) {
-
 	fmt.Println("Spinning up a new server...")
 	serverName := guuid.New().String()
 
 	if serverType == "" {
-		serverType = "cx11" // smallest one
+		serverType = "cx22" // smallest one
 	}
 
 	if imageName == "" {
-		imageName = "ubuntu-20.04"
+		imageName = "debian-12"
 	}
 
 	if location == "" {
@@ -142,9 +138,8 @@ func spinUpServer(c *hcloud.Client, serverType string, imageName string, locatio
 		ServerType: &hcloud.ServerType{Name: serverType},
 		Image:      &hcloud.Image{Name: imageName},
 		Location:   &hcloud.Location{Name: location},
-		Labels:     map[string]string{"managed-by": "spinner"},
+		Labels:     map[string]string{"managed-by": "spinoff"},
 	})
-
 	if err != nil {
 		fmt.Printf("Server.Create failed: %s\n", err)
 		return nil, err
@@ -158,7 +153,7 @@ func spinUpServer(c *hcloud.Client, serverType string, imageName string, locatio
 		servers, _, lerr := c.Server.List(context.Background(), hcloud.ServerListOpts{
 			Name:     serverName,
 			Status:   []hcloud.ServerStatus{hcloud.ServerStatusRunning},
-			ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinner"},
+			ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinoff"},
 		})
 
 		if lerr != nil {

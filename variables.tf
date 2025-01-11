@@ -9,7 +9,7 @@ variable "faasd_node_name" {
 }
 
 variable "faasd_node_server_type" {
-  default     = "cx11"
+  default     = "cx22"
   description = "Server type of the faasd_node node"
 }
 
@@ -19,11 +19,11 @@ variable "faasd_node_location" {
 }
 
 variable "ssh_key_file" {
-  default     = "~/.ssh/id_rsa.pub"
+  default     = "~/.ssh/id_terraform_rsa.pub"
   description = "Path to the SSH public key file"
 }
 
 variable "docker_user" {
-  default     = "felipecruz"
+  default     = "comfucios"
   description = "DockerHub username to push the images"
 }

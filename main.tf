@@ -1,6 +1,6 @@
 resource "hcloud_ssh_key" "default" {
   name       = "my-ssh-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file("~/.ssh/id_terraform_rsa.pub")
 }
 
 data "local_file" "ssh_key" {
@@ -25,7 +25,7 @@ data "template_file" "cloud_init" {
 
 resource "hcloud_server" "faasd_node" {
   name        = var.faasd_node_name
-  image       = "ubuntu-20.04"
+  image       = "debian-12"
   server_type = var.faasd_node_server_type
   location    = var.faasd_node_location
   ssh_keys    = [hcloud_ssh_key.default.name]
@@ -37,7 +37,7 @@ resource "hcloud_server" "faasd_node" {
       type        = "ssh"
       user        = "root"
       host        = self.ipv4_address
-      private_key = file("~/.ssh/id_rsa")
+      private_key = file("~/.ssh/id_terraform_rsa")
     }
 
     inline = [
