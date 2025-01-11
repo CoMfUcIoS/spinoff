@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hetznercloud/hcloud-go/hcloud"
+	"github.com/hetznercloud/hcloud-go/v2/hcloud"
 )
 
 func getAPISecret(secretName string) (secretBytes []byte, err error) {

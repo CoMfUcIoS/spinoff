@@ -9,7 +9,7 @@ import (
 	"time"
 
 	guuid "github.com/google/uuid"
-	"github.com/hetznercloud/hcloud-go/hcloud"
+	"github.com/hetznercloud/hcloud-go/v2/hcloud"
 )
 
 func getAPISecret(secretName string) (secretBytes []byte, err error) {
