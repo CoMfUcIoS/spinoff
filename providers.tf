@@ -6,7 +6,7 @@ terraform {
     }
     external = {
       source  = "registry.opentofu.org/hashicorp/external"
-      version = "2.0.0"
+      version = "2.3.4"
     }
     local = {
       source  = "registry.opentofu.org/hashicorp/local"
