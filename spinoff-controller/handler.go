@@ -44,7 +44,6 @@ func getAPISecret(secretName string) (secretBytes []byte, err error) {
 
 // Handle will process incoming HTTP requests
 func Handle(w http.ResponseWriter, r *http.Request) {
-
 	// token := r.Header.Get("X-Api-Key")
 	// fmt.Printf("X-Api-Key: %s\n", token)
 
@@ -83,7 +82,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	servers, err := client.Server.AllWithOpts(context.Background(), hcloud.ServerListOpts{
 		Status:   []hcloud.ServerStatus{hcloud.ServerStatusRunning},
-		ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinner"},
+		ListOpts: hcloud.ListOpts{LabelSelector: "managed-by=spinoff"},
 	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -121,7 +120,6 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 // Check if a given metric is below a given threshold
 func metricIsBelow(c *hcloud.Client, server *hcloud.Server, metricName string, metricThreshold int, lastMinutes int) (bool, error) {
-
 	fmt.Printf("Checking metrics for server %s\n", server.Name)
 
 	now := time.Now()

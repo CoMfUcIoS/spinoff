@@ -1,18 +1,16 @@
 FROM alpine:3.21.0
 
-LABEL maintainer="Felipe Cruz"
-
-ENV TERRAFORM_VERSION=0.14.3
+LABEL maintainer="CoMfUcIoS"
 
 RUN apk update
 RUN apk add curl unzip
 
 RUN curl -sSL https://cli.openfaas.com | sh
 
-RUN wget https://releases.hashicorp.com/terraform/0.14.3/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    mv terraform /usr/local/bin && \
-    rm -rf terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+RUN wget https://get.opentofu.org/install-opentofu.sh -O install-opentofu.sh && \
+  chmod +x install-opentofu.sh && \
+  ./install-opentofu.sh --install-method apk && \
+  rm -f install-opentofu.sh
 
 WORKDIR /work
 

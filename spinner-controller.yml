@@ -1,22 +1,22 @@
+---
 version: 1.0
 provider:
   name: openfaas
   gateway: http://$FAASD_NODE_IP:8080
 functions:
-  spinner-controller:
+  spinoff-controller:
     lang: golang-middleware
-    handler: ./spinner-controller
-    image: $DOCKER_USER/spinner-controller:latest
+    handler: ./spinoff-controller
+    image: $DOCKER_USER/spinoff-controller:latest
     annotations:
       topic: cron-function
-      schedule: "*/1 * * * *"
+      schedule: '*/1 * * * *'
     build_args:
-      GO111MODULE: on
+      GO111MODULE: true
     environment:
       read_timeout: 60s
       write_timeout: 3s
-      metric_name: "cpu"
-      metric_threshold: "50"
+      metric_name: cpu
+      metric_threshold: '50'
       last_minutes: 5
-    secrets:
-      - secret-api-key
+    secrets: [secret-api-key]
