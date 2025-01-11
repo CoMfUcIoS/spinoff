@@ -14,11 +14,11 @@ jobs:
         run: echo "::set-output name=github-sha-short::$(echo $GITHUB_SHA | cut -c
           1-7)"
       - name: Pull template
-        uses: docker://openfaas/faas-cli:latest-root
+        uses: docker://ghcr.io/openfaas/faas-cli:latest-root
         with:
           args: template store pull golang-middleware
       - name: Run shrinkwrap build
-        uses: docker://openfaas/faas-cli:latest-root
+        uses: docker://ghcr.io/openfaas/faas-cli:latest-root
         with:
           args: build -f spinoff.yml --shrinkwrap
       - name: Login to DockerHub
@@ -50,11 +50,11 @@ jobs:
         run: echo "::set-output name=github-sha-short::$(echo $GITHUB_SHA | cut -c
           1-7)"
       - name: Pull template
-        uses: docker://openfaas/faas-cli:latest-root
+        uses: docker://ghcr.io/openfaas/faas-cli:latest-root
         with:
           args: template store pull golang-middleware
       - name: Run shrinkwrap build
-        uses: docker://openfaas/faas-cli:latest-root
+        uses: docker://ghcr.io/openfaas/faas-cli:latest-root
         with:
           args: build -f spinoff-controller.yml --shrinkwrap
       - name: Login to DockerHub
