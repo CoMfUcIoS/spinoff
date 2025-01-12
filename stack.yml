@@ -5,20 +5,17 @@ functions:
   spinoff:
     lang: golang-middleware
     handler: ./spinoff
-    image: DOCKER_USER/spinoff:latest
+    image: $DOCKER_USER/spinoff:latest
     build_args:
       GO111MODULE: true
     environment:
       read_timeout: 60s
       write_timeout: 60s
     secrets: [secret-api-key]
-    annotations:
-      com.openfaas.git-repo-url: https://github.com/comfucios/spinoff
-      github: true
   spinoff-controller:
     lang: golang-middleware
     handler: ./spinoff-controller
-    image: DOCKER_USER/spinoff-controller:latest
+    image: $DOCKER_USER/spinoff-controller:latest
     annotations:
       topic: cron-function
       schedule: '*/1 * * * *'
@@ -31,10 +28,6 @@ functions:
       metric_threshold: '50'
       last_minutes: 5
     secrets: [secret-api-key]
-    annotations:
-      com.openfaas.git-repo-url: https://github.com/comfucios/spinoff
-      github: true
-
 configuration:
   templates:
     - name: golang-middleware
