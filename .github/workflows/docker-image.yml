@@ -37,7 +37,7 @@ jobs:
           faas-cli build --shrinkwrap
       - name: Publish functions
         run: >-
-          OWNER="${{secrets.DOCKERHUB_USERNAME}}"  TAG="latest"
+          # OWNER="${{secrets.DOCKERHUB_USERNAME}}"  TAG="latest"
           faas-cli publish
           --extra-tag ${{ github.sha }}
           --build-arg GO111MODULE=on

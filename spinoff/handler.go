@@ -29,7 +29,6 @@ func validAuth(apiKeyHeader string) (bool, error) {
 		fmt.Printf(err.Error())
 		return false, err
 	}
-
 	if apiKeyHeader != "" && apiKeyHeader == string(apiSecret) {
 		fmt.Println("Authorization succeded.")
 		return true, nil
@@ -41,7 +40,6 @@ func validAuth(apiKeyHeader string) (bool, error) {
 
 func Handle(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("X-Api-Key")
-	// fmt.Printf("X-Api-Key: %s\n", token)
 
 	authenticated, err := validAuth(token)
 	if err != nil || !authenticated {
