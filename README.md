@@ -1,6 +1,6 @@
 # spinoff ⚡🔄
 
-![ci](https://github.com/comfucios/spinoff/workflows/ci/badge.svg)
+![ci](https://github.com/comfucios/spinoff/workflows/publish/badge.svg)
 
 ## Introduction
 

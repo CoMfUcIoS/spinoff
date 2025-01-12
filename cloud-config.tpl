@@ -50,7 +50,6 @@ runcmd:
   - echo ${gw_password} | faas-cli login -g http://localhost:8080 --password-stdin
   - echo ${hcloud_token} | faas-cli secret create secret-api-key -g http://localhost:8080
   - faas-cli secret list -g http://localhost:8080
-  - sed -i s/\$FAASD_NODE_IP/localhost/g spinoff.yml spinoff-controller.yml
-  - sed -i s/\$DOCKER_USER/${docker_user}/g spinoff.yml spinoff-controller.yml
-  - faas-cli deploy -f spinoff.yml
-  - faas-cli deploy -f spinoff-controller.yml
+  - sed -i s/\$FAASD_NODE_IP/localhost/g stack.yml 
+  - sed -i s/\$DOCKER_USER/${docker_user}/g stack.yml 
+  - faas-cli deploy -f stack.yml
