@@ -32,6 +32,9 @@ jobs:
       - name: Set the correct docker user in controller yml
         run: >
           sed -i s/\$DOCKER_USER/${{secrets.DOCKERHUB_USERNAME}}/g stack.yml
+      - name: Prebuild with shrinkwrap
+        run: >
+          faas-cli build --shrinkwrap
       - name: Publish functions
         run: >-
           OWNER="${{secrets.DOCKERHUB_USERNAME}}"  TAG="latest"
