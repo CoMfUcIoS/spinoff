@@ -3,7 +3,6 @@ package function
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -15,47 +14,17 @@ import (
 
 func getAPISecret(secretName string) (secretBytes []byte, err error) {
 	// read from the openfaas secrets folder
-	secretBytes, err = ioutil.ReadFile("/var/openfaas/secrets/" + secretName)
+	secretBytes, err = os.ReadFile("/var/openfaas/secrets/" + secretName)
 	if err != nil {
 		// read from the original location for backwards compatibility with openfaas <= 0.8.2
-		secretBytes, err = ioutil.ReadFile("/run/secrets/" + secretName)
+		secretBytes, err = os.ReadFile("/run/secrets/" + secretName)
 	}
 
 	return secretBytes, err
 }
 
-// func validAuth(apiKeyHeader string) (bool, error) {
-
-// 	apiSecret, err := getAPISecret("secret-api-key")
-// 	// fmt.Printf("string(apiSecret): %s\n", string(apiSecret))
-// 	if err != nil {
-// 		fmt.Printf(err.Error())
-// 		return false, err
-// 	}
-
-// 	if apiKeyHeader != "" && apiKeyHeader == string(apiSecret) {
-// 		fmt.Println("Authorization succeded.")
-// 		return true, nil
-// 	}
-
-// 	fmt.Println("Authorization failed.")
-// 	return false, nil
-// }
-
-// Handle will process incoming HTTP requests
 func Handle(w http.ResponseWriter, r *http.Request) {
-	// token := r.Header.Get("X-Api-Key")
-	// fmt.Printf("X-Api-Key: %s\n", token)
-
-	// authenticated, err := validAuth(token)
-	// if err != nil || !authenticated {
-	// 	w.WriteHeader(http.StatusUnauthorized)
-	// 	w.Write([]byte(fmt.Sprintf("Authorization failed. Token is not valid.")))
-	// 	return
-	// }
-
 	apiSecret, err := getAPISecret("secret-api-key")
-	// fmt.Printf("string(apiSecret): %s\n", string(apiSecret))
 	if err != nil {
 		fmt.Printf(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)

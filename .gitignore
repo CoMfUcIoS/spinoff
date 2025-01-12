@@ -11,3 +11,5 @@ template
 .terraform/
 
 *.conf
+
+.secrets
