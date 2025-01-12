@@ -1,5 +1,4 @@
----
-  # https://github.com/openfaas/cron-connector#add-to-faasd
+# https://github.com/openfaas/cron-connector#add-to-faasd
 cron-connector:
   image: ghcr.io/openfaas/cron-connector:latest
   environment:
