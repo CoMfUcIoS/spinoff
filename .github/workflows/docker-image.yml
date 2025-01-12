@@ -40,7 +40,7 @@ jobs:
           faas-cli publish
           --extra-tag ${{ github.sha }}
           --build-arg GO111MODULE=on
-          --platforms linux/amd64,linux/arm64,linux/arm/v7
+          --platforms linux/amd64
   publish_infra-bootstrap:
     runs-on: ubuntu-latest
     steps:
