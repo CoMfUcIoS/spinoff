@@ -91,7 +91,7 @@ curl -v \
  http://$FAASD_NODE_IP:8080/function/spinoff?server_type=cx22&image_name=debian-12&location=nbg1
 ```
 
-- The [spinoff-controller](spinoff-controller) function is triggered based on the cron expression defined in [spinoff-controller.yml](spinoff-controller.yml#L12) and is responsible for deleting any running servers that are not doing any work based on the [provided criteria](spinoff-controller.yml#L18-L20).
+- The [spinoff-controller](spinoff-controller) function is triggered based on the cron expression defined in [stack.yml](stack.yml#L22) and is responsible for deleting any running servers that are not doing any work based on the [provided criteria](stack.yml#L27-L29).
 
 For instance, if we want to delete any servers whose CPU load is below under 50% in the last 5 minutes, set the following values:
 
@@ -105,7 +105,7 @@ and deploy the spinoff-controller function again:
 
 ```cli
 faas-cli login -g http://<faasd-node-ip>:8080 -p <password>
-faas-cli deploy -g http://<faasd-node-ip>:8080 -f spinoff-controller.yml
+faas-cli deploy -g http://<faasd-node-ip>:8080 -f stack.yml
 ```
 
 Once deployed, it will be automatically called based on the cron schedule.
