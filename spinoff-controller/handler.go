@@ -109,7 +109,7 @@ func metricIsBelow(c *hcloud.Client, server *hcloud.Server, metricName string, m
 	sum := 0.0
 	for _, metricKeyPair := range metricKeyPairs {
 		fmt.Printf("Timestamp: %v, Value: %s\n", metricKeyPair.Timestamp, metricKeyPair.Value)
-		val, err2 := strconv.ParseFloat(metricKeyPair.Value, 8)
+		val, err2 := strconv.ParseFloat(metricKeyPair.Value, 32)
 		if err2 != nil {
 			return false, err2
 		}
