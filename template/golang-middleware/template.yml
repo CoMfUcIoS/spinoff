@@ -1,12 +1,11 @@
 language: golang-middleware
 fprocess: ./handler
 welcome_message: |
-  You have created a new function which uses Golang 1.13.
+  You have created a new function which uses Go 1.22 and Alpine
+  Linux as its base image.
 
-  To include third-party dependencies, use Go modules and use
-  "--build-arg GO111MODULE=on" with faas-cli build or configure this  
+  To disable the go module, for private vendor code, please use
+  "--build-arg GO111MODULE=off" with faas-cli build or configure this
   via your stack.yml file.
 
-  See more: https://docs.openfaas.com/cli/templates/
-  For detailed examples:
-  https://github.com/openfaas-incubator/golang-http-template
+  Learn more: https://docs.openfaas.com/languages/go/
