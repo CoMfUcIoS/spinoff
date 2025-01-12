@@ -1,5 +1,10 @@
+data "hcloud_ssh_key" "existing" {
+  name = "spinoff-key"
+}
+
 resource "hcloud_ssh_key" "default" {
-  name       = "my-ssh-key"
+  count      = length(data.hcloud_ssh_key.existing.id) == 0 ? 1 : 0
+  name       = "spinoff-key"
   public_key = file("~/.ssh/id_terraform_rsa.pub")
 }
 

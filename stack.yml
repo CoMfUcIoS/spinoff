@@ -1,6 +1,7 @@
 ---
 provider:
   name: openfaas
+  gateway: http://$FAASD_NODE_IP:8080
 functions:
   spinoff:
     lang: golang-middleware
