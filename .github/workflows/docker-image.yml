@@ -40,6 +40,8 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/spinoff:latest
           build-args: |
             GO111MODULE=on
+            TARGETOS=linux
+            TARGETARCH=amd64
   spinoff-controller-func-build:
     runs-on: ubuntu-latest
     steps:
@@ -76,6 +78,8 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/spinoff-controller:latest
           build-args: |
             GO111MODULE=on
+            TARGETOS=linux
+            TARGETARCH=amd64
   spinoff-infra-boostrap:
     runs-on: ubuntu-latest
     steps:
