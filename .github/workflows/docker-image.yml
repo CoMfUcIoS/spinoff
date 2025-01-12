@@ -20,7 +20,7 @@ jobs:
       - name: Get faas-cli
         run: curl -sLSf https://cli.openfaas.com | sudo sh
       - name: Pull custom templates from stack.yml
-        run: faas-cli template store pull golang-middleware
+        run: faas-cli template pull stack
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -33,7 +33,7 @@ jobs:
           echo ${{secrets.DOCKERHUB_TOKEN}} |  docker login --username  ${{secrets.DOCKERHUB_USERNAME}}  --password-stdin
       - name: Set the correct docker user in controller yml
         run: >
-          sed -i s/\$DOCKER_USER/${{secrets.DOCKERHUB_USERNAME}}/g spinoff.yml spinoff-controller.yml
+          sed -i s/\$DOCKER_USER/${{secrets.DOCKERHUB_USERNAME}}/g stack.yml
       - name: Publish functions
         run: >-
           OWNER="${{secrets.DOCKERHUB_USERNAME}}"  TAG="latest"
@@ -41,7 +41,6 @@ jobs:
           --extra-tag ${{ github.sha }}
           --build-arg GO111MODULE=on
           --platforms linux/amd64,linux/arm64,linux/arm/v7
-          -f spinoff*.yml
   publish_infra-bootstrap:
     runs-on: ubuntu-latest
     steps:
