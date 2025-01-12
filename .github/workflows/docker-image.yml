@@ -27,19 +27,21 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Get TAG
         id: get_tag
-        run: echo "::set-output name=github-sha-short::$(echo $GITHUB_SHA | cut -c
-          1-7)"
+        run: echo "::set-output name=TAG::$(echo $GITHUB_SHA | cut -c 1-7)"
       - name: Docker Login
         run: >
           echo ${{secrets.DOCKERHUB_TOKEN}} |  docker login --username  ${{secrets.DOCKERHUB_USERNAME}}  --password-stdin
+      - name: Set the correct docker user in controller yml
+        run: >
+          sed -i s/\$DOCKER_USER/${{secrets.DOCKERHUB_USERNAME}}/g spinoff.yml spinoff-controller.yml
       - name: Publish functions
         run: >-
-          OWNER="${{ steps.get_repo_owner.outputs.repo_owner }}"  TAG="latest"
+          OWNER="${{secrets.DOCKERHUB_USERNAME}}"  TAG="latest"
           faas-cli publish
           --extra-tag ${{ github.sha }}
           --build-arg GO111MODULE=on
           --platforms linux/amd64,linux/arm64,linux/arm/v7
-          --filter bcrypt
+          -f spinoff*.yml
   publish_infra-bootstrap:
     runs-on: ubuntu-latest
     steps:
