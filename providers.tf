@@ -14,7 +14,7 @@ terraform {
     }
     random = {
       source  = "registry.opentofu.org/hashicorp/random"
-      version = "3.6.3"
+      version = "3.7.2"
     }
     template = {
       source  = "registry.opentofu.org/hashicorp/template"
